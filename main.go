@@ -43,7 +43,7 @@ func main() {
 	))
 
 	ctx := context.Background()
-	_, err = db.NewCreateTable().Model((*Todo)(nil)).ifNotExists().Exec(ctx)
+	_, err = db.NewCreateTable().Model((*Todo)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
