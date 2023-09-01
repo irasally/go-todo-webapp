@@ -1,9 +1,18 @@
 package main
 
 import (
+	"context"
+	"database/sql"
+	"log"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/labstack/echo/v4"
+	_ "github.com/lib/pq"
+	"github.com/uptrace/bun"
+	"github.com/uptrace/bun/dialect/pgdialect"
+	"github.com/uptrace/bun/extra/bundebug"
 )
 
 type Todo struct {
@@ -38,6 +47,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	e := echo.New()
 	e.get("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "")
