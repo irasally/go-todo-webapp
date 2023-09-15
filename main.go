@@ -1,24 +1,20 @@
 package main
 
 import (
-	"context"
-	"database/sql"
 	"embed"
-	"errors"
 	"html/template"
 	"io"
 	"io/fs"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	_ "github.com/lib/pq"
 
 	"github.com/labstack/echo/v4"
 	"github.com/uptrace/bun"
-	"github.com/uptrace/bun/dialect/pgdialect"
-	"github.com/uptrace/bun/extra/bundebug"
+
+	"todo-webapp/model"
 	"todo-webapp/router"
 )
 
@@ -75,25 +71,8 @@ func formatDateTime(d time.Time) string {
 }
 
 func main() {
-	sqldb, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer sqldb.Close()
-
-	db := bun.NewDB(sqldb, pgdialect.New())
-	defer db.Close()
-
-	db.AddQueryHook(bundebug.NewQueryHook(
-		//bundebug.WithVerbose(true),
-		bundebug.FromEnv("BUNDEBUG"),
-	))
-
-	ctx := context.Background()
-	_, err = db.NewCreateTable().Model((*Todo)(nil)).IfNotExists().Exec(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := model.DBConnection()
+	model.CreateTable(db)
 
 	e := echo.New()
 	router.SetRouter(e)
