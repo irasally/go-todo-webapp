@@ -26,6 +26,7 @@ func DBConnection() *bun.DB {
 		bundebug.FromEnv("BUNDEBUG"),
 	))
 
+	CreateTable(db)
 	return db
 }
 
