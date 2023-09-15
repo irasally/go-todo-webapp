@@ -21,11 +21,12 @@ import (
 	"github.com/uptrace/bun/extra/bundebug"
 )
 
-// go:embed static
+//go:embed static
 var static embed.FS
 
-// go:embed templates
+//go:embed templates
 var templates embed.FS
+
 type Todo struct {
 	bun.BaseModel `bun:"table:todos,alias:t"`
 
