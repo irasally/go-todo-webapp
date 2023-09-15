@@ -12,7 +12,6 @@ import (
 	_ "github.com/lib/pq"
 
 	"github.com/labstack/echo/v4"
-	"github.com/uptrace/bun"
 
 	"todo-webapp/model"
 	"todo-webapp/router"
@@ -51,7 +50,6 @@ func main() {
 			"FormatDateTime": formatDateTime,
 		}).ParseFS(templates, "templates/*")),
 	}
-
 
 	staticFs, err := fs.Sub(static, "static")
 	if err != nil {
