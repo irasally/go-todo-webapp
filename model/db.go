@@ -13,7 +13,7 @@ import (
 
 var db *bun.DB
 
-func DBConnection() *bun.DB {
+func DBConnection(){
 	sqldb, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
