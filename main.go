@@ -71,8 +71,7 @@ func formatDateTime(d time.Time) string {
 }
 
 func main() {
-	db := model.DBConnection()
-	model.CreateTable(db)
+	model.DBConnection()
 
 	e := echo.New()
 	router.SetRouter(e)
