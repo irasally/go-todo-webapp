@@ -26,7 +26,7 @@ type Todo struct {
 func GetTodos() ([]Todo, error) {
 	var todos []Todo
 	ctx := context.Background()
-	err := db.Connection.NewSelect().Model(&todos).Order("created_at").Scan(ctx)
+	err := db.Connection.NewSelect().Model(&todos).Order("done", "until", "created_at").Scan(ctx)
 
 	return todos, err
 }
