@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Data struct {
+type data struct {
 	Todos []model.Todo
 	Errors []error
 }
@@ -19,11 +19,11 @@ func root_get(e *echo.Echo){
 
 		if err != nil {
 			e.Logger.Error(err)
-			return c.Render(http.StatusBadRequest, "index", Data{
+			return c.Render(http.StatusBadRequest, "index", data{
 				Errors: []error{errors.New("Cannot get todos")},
 			})
 		}
-		return c.Render(http.StatusOK, "index", Data{ Todos: todos })
+		return c.Render(http.StatusOK, "index", data{ Todos: todos })
 	})
 }
 
@@ -42,7 +42,7 @@ func root_post(e *echo.Echo) {
 
 		if errs != nil {
 			e.Logger.Error(errs)
-			return c.Render(http.StatusBadRequest, "index", Data{Errors: errs})
+			return c.Render(http.StatusBadRequest, "index", data{Errors: errs})
 		} else if todo.ID == 0 {
 			err = add(todo)
 		} else {
@@ -53,7 +53,7 @@ func root_post(e *echo.Echo) {
 			}
 		}
 		if err != nil {
-			return c.Render(http.StatusBadRequest, "index", Data{Errors: []error{err}})
+			return c.Render(http.StatusBadRequest, "index", data{Errors: []error{err}})
 		}
 		return c.Redirect(http.StatusFound, "/")
 	})
