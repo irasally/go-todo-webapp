@@ -56,11 +56,11 @@ func SetRouter(e *echo.Echo) {
 
 		// パラメーターをフィールドにバインド
 		errs := echo.FormFieldBinder(c).
-		Int64("id", &todo.ID).
-		String("content", &todo.Content).
-		Bool("done", &todo.Done).
-		CustomFunc("until", customFunc(&todo)).
-		BindErrors()
+									Int64("id", &todo.ID).
+									String("content", &todo.Content).
+									Bool("done", &todo.Done).
+									CustomFunc("until", customFunc(&todo)).
+									BindErrors()
 
 		if errs != nil {
 			e.Logger.Error(errs)
