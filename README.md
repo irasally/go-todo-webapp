@@ -1,11 +1,11 @@
 # go-todo-webapp
 go-lang tutorial TODO webapp
 
-# env
-go version go1.20.6
-postgresql
+## env
+* go version go1.20.6
+* postgresql
 
-# setup
+## setup
 ```
 export DATABASE_URL="[Connection strings for PostgreSQL]"
 ```
