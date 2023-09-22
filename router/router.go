@@ -74,7 +74,6 @@ func SetRouter(e *echo.Echo) {
 				err = doneTodo(todo)
 			}
 		}
-
 		if err != nil {
 			return c.Render(http.StatusBadRequest, "index", Data{Errors: []error{err}})
 		}
@@ -101,7 +100,6 @@ func delete(todo model.Todo) error{
 }
 
 func doneTodo(todo model.Todo) error {
-	// 更新
 	err := model.UpdateTodo(todo)
 	if err != nil {
 		logger.Error(err)
