@@ -66,11 +66,7 @@ func SetRouter(e *echo.Echo) {
 			e.Logger.Error(errs)
 			return c.Render(http.StatusBadRequest, "index", Data{Errors: errs})
 		} else if todo.ID == 0 {
-			err := model.AddTodo(todo)
-			if err != nil {
-				e.Logger.Error(err)
-				err = errors.New("Cannot insert todo")
-			}
+			err = add(todo)
 		} else {
 			if c.FormValue("delete") != "" {
 				// 削除
@@ -89,6 +85,15 @@ func SetRouter(e *echo.Echo) {
 		}
 		return c.Redirect(http.StatusFound, "/")
 	})
+}
+
+func add(todo model.Todo) error {
+	err := model.AddTodo(todo)
+	if err != nil {
+		logger.Error(err)
+		err = errors.New("Cannot insert todo")
+	}
+	return err
 }
 
 func doneTodo(todo model.Todo) error {
