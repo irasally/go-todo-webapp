@@ -45,22 +45,19 @@ func AddTodo(todo Todo) error {
 }
 
 func DeleteTodo(todo Todo) error {
-	var err error
-
 	ctx := context.Background()
 	// 削除
-	_, err = db.Connection.NewDelete().Model(&todo).Where("id = ?", todo.ID).Exec(ctx)
+	_, err := db.Connection.NewDelete().Model(&todo).Where("id = ?", todo.ID).Exec(ctx)
 
 	return err
 }
 
 func UpdateTodo(todo Todo) error {
-	var err error
 	ctx := context.Background()
 
 	// 更新
 	var orig Todo
-	err = db.Connection.NewSelect().Model(&orig).Where("id = ?", todo.ID).Scan(ctx)
+	err := db.Connection.NewSelect().Model(&orig).Where("id = ?", todo.ID).Scan(ctx)
 	if err == nil {
 		orig.Done = todo.Done
 		_, err = db.Connection.NewUpdate().Model(&orig).Where("id = ?", todo.ID).Exec(ctx)
