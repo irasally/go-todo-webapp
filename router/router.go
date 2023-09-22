@@ -69,12 +69,7 @@ func SetRouter(e *echo.Echo) {
 			err = add(todo)
 		} else {
 			if c.FormValue("delete") != "" {
-				// 削除
-				err := model.DeleteTodo(todo)
-				if err != nil {
-					e.Logger.Error(err)
-					err = errors.New("Cannot delete todo")
-				}
+				err = delete(todo)
 			} else {
 				err = doneTodo(todo)
 			}
@@ -92,6 +87,15 @@ func add(todo model.Todo) error {
 	if err != nil {
 		logger.Error(err)
 		err = errors.New("Cannot insert todo")
+	}
+	return err
+}
+
+func delete(todo model.Todo) error{
+	err := model.DeleteTodo(todo)
+	if err != nil {
+		logger.Error(err)
+		err = errors.New("Cannot delete todo")
 	}
 	return err
 }
