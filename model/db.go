@@ -20,7 +20,7 @@ func DBConnection(){
 	}
 	defer sqldb.Close()
 
-	db := bun.NewDB(sqldb, pgdialect.New())
+	db = bun.NewDB(sqldb, pgdialect.New())
 	defer db.Close()
 
 	db.AddQueryHook(bundebug.NewQueryHook(
