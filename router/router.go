@@ -80,12 +80,7 @@ func SetRouter(e *echo.Echo) {
 					err = errors.New("Cannot delete todo")
 				}
 			} else {
-				// 更新
-				err := model.UpdateTodo(todo)
-				if err != nil {
-					e.Logger.Error(err)
-					err = errors.New("Cannot update todo")
-				}
+				err = doneTodo(todo)
 			}
 		}
 
@@ -94,5 +89,14 @@ func SetRouter(e *echo.Echo) {
 		}
 		return c.Redirect(http.StatusFound, "/")
 	})
+}
 
+func doneTodo(todo model.Todo) error {
+	// 更新
+	err := model.UpdateTodo(todo)
+	if err != nil {
+		logger.Error(err)
+		err = errors.New("Cannot update todo")
+	}
+	return err
 }
