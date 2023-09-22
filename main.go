@@ -13,6 +13,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
+	"todo-webapp/db"
 	"todo-webapp/model"
 	"todo-webapp/router"
 )
@@ -39,8 +40,9 @@ func formatDateTime(d time.Time) string {
 }
 
 func main() {
-	model.CreateDBConnection()
-	defer model.CloseDBConnection()
+	db.CreateDBConnection()
+	model.SetupTodoTable()
+	defer db.CloseDBConnection()
 
 	e := echo.New()
 	router.SetRouter(e)

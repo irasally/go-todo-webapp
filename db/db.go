@@ -1,7 +1,6 @@
-package model
+package db
 
 import (
-	"context"
 	"database/sql"
 	"log"
 	"os"
@@ -12,7 +11,7 @@ import (
 )
 
 var sqldb *sql.DB
-var db *bun.DB
+var Connection *bun.DB
 
 func CreateDBConnection(){
 	var err error
@@ -21,26 +20,14 @@ func CreateDBConnection(){
 		log.Fatal(err)
 	}
 
-	db = bun.NewDB(sqldb, pgdialect.New())
-	db.AddQueryHook(bundebug.NewQueryHook(
+	Connection = bun.NewDB(sqldb, pgdialect.New())
+	Connection.AddQueryHook(bundebug.NewQueryHook(
 		//bundebug.WithVerbose(true),
 		bundebug.FromEnv("BUNDEBUG"),
 	))
-
-	CreateTable(db)
 }
 
 func CloseDBConnection(){
-	db.Close()
+	Connection.Close()
 	sqldb.Close()
-}
-
-// Task型のテーブルを作成する
-func CreateTable(db *bun.DB) {
-	var err error
-	ctx := context.Background()
-	_, err = db.NewCreateTable().Model((*Todo)(nil)).IfNotExists().Exec(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
