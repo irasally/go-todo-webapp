@@ -20,17 +20,19 @@ func CreateDBConnection(){
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer sqldb.Close()
 
 	db = bun.NewDB(sqldb, pgdialect.New())
-	defer db.Close()
-
 	db.AddQueryHook(bundebug.NewQueryHook(
 		//bundebug.WithVerbose(true),
 		bundebug.FromEnv("BUNDEBUG"),
 	))
 
 	CreateTable(db)
+}
+
+func CloseDBConnection(){
+	db.Close()
+	sqldb.Close()
 }
 
 // Task型のテーブルを作成する

@@ -40,6 +40,7 @@ func formatDateTime(d time.Time) string {
 
 func main() {
 	model.CreateDBConnection()
+	defer model.CloseDBConnection()
 
 	e := echo.New()
 	router.SetRouter(e)
