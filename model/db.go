@@ -11,10 +11,12 @@ import (
 	"github.com/uptrace/bun/extra/bundebug"
 )
 
+var sqldb *sql.DB
 var db *bun.DB
 
 func CreateDBConnection(){
-	sqldb, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	var err error
+	sqldb, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
