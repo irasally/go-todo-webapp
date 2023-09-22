@@ -3,37 +3,21 @@ package router
 import (
 	"errors"
 	"net/http"
-	"time"
 
 	"todo-webapp/model"
 
 	"github.com/labstack/echo/v4"
 )
 
+var logger echo.Logger
 type Data struct {
 	Todos []model.Todo
 	Errors []error
 }
 
-func customFunc(todo *model.Todo) func([]string) []error{
-	return func(values []string) []error {
-		if len(values) == 0 || values[0] == "" {
-			return nil
-		}
-		dt, err := time.Parse("2006-01-02T15:04 MST", values[0]+" JST")
-		if err != nil {
-			return []error{err}
-		}
-		todo.Until = dt
-		return nil
-	}
-}
-
 func setupLogger(e *echo.Echo){
 	logger = e.Logger
 }
-
-var logger echo.Logger
 
 func SetRouter(e *echo.Echo) {
 	setupLogger(e)
