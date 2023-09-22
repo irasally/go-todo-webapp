@@ -49,7 +49,7 @@ func root_post(e *echo.Echo) {
 			if c.FormValue("delete") != "" {
 				err = delete(todo)
 			} else {
-				err = doneTodo(todo)
+				err = update(todo)
 			}
 		}
 		if err != nil {
@@ -77,7 +77,7 @@ func delete(todo model.Todo) error{
 	return err
 }
 
-func doneTodo(todo model.Todo) error {
+func update(todo model.Todo) error {
 	err := model.UpdateTodo(todo)
 	if err != nil {
 		logger.Error(err)
