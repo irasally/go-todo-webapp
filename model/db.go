@@ -29,7 +29,6 @@ func DBConnection(){
 	))
 
 	CreateTable(db)
-	return db
 }
 
 // Task型のテーブルを作成する
