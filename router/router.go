@@ -29,7 +29,15 @@ func customFunc(todo *model.Todo) func([]string) []error{
 	}
 }
 
+func setupLogger(e *echo.Echo){
+	logger = e.Logger
+}
+
+var logger echo.Logger
+
 func SetRouter(e *echo.Echo) {
+	setupLogger(e)
+
 	e.GET("/", func(c echo.Context) error {
 		todos, err := model.GetTodos()
 
