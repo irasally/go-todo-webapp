@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+.button { @apply inline-block m-1 p-1 rounded-md; }
+.update { @apply bg-green-400; }
+@tailwind utilities;

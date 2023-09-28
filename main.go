@@ -11,6 +11,8 @@ import (
 
 	_ "github.com/lib/pq"
 
+	"github.com/gotailwindcss/tailwind/twembed"
+	"github.com/gotailwindcss/tailwind/twhandler"
 	"github.com/labstack/echo/v4"
 
 	"todo-webapp/db"
@@ -61,5 +63,11 @@ func main() {
 
 	fileServer := http.FileServer(http.FileSystem(http.FS(staticFs)))
 	e.GET("/static/*", echo.WrapHandler(http.StripPrefix("/static/", fileServer)))
+
+	e.GET("/css/*", echo.WrapHandler(
+										http.StripPrefix("/css/", twhandler.New(
+																									http.Dir("css"),
+																									"/css",
+																									twembed.New()))))
 	e.Logger.Fatal(e.Start(":8989"))
 }
