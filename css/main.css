@@ -1,5 +1,8 @@
 @tailwind base;
 @tailwind components;
-.button { @apply inline-block m-1 p-1 rounded-md; }
-.update { @apply bg-green-400; }
 @tailwind utilities;
+
+.button { @apply inline-block m-1 p-1 rounded-md; }
+.update { @apply text-sm bg-gray-300; }
+.delete { @apply text-sm bg-gray-700 text-gray-300; }
+.add { @apply px-3 bg-blue-300; }
